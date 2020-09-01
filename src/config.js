@@ -1,18 +1,46 @@
-export default {
-    MAX_ATTACHMENT_SIZE: 5000000,
-    STRIPE_KEY: "pk_test_51HLWguKAG5eloRI7yQRPOyQlKmdXXE2bab2nKHZlP3A6uaEH4G8atVvRlelD2q5DPRHEQxSaZNG755wjnbACut1c00jNldGLHD",
+const dev = {
+    STRIPE_KEY: "YOUR_STRIPE_DEV_PUBLIC_KEY",
     s3: {
-        REGION: "us-east-1",
-        BUCKET: "notes-app-uploads-jcanoc"
+        REGION: "YOUR_DEV_S3_UPLOADS_BUCKET_REGION",
+        BUCKET: "YOUR_DEV_S3_UPLOADS_BUCKET_NAME"
     },
     apiGateway: {
-        REGION: "us-east-1",
-        URL: "https://8lykgq0ha1.execute-api.us-east-1.amazonaws.com/prod"
+        REGION: "YOUR_DEV_API_GATEWAY_REGION",
+        URL: "YOUR_DEV_API_GATEWAY_URL"
     },
     cognito: {
-        REGION: "us-east-1",
-        USER_POOL_ID: "us-east-1_o3YFBcjel",
-        APP_CLIENT_ID: "jkv0kb38aukr6l9nl2mc76588",
-        IDENTITY_POOL_ID: "us-east-1:553da606-8096-457b-94b9-696506bdbd62"
+        REGION: "YOUR_DEV_COGNITO_REGION",
+        USER_POOL_ID: "YOUR_DEV_COGNITO_USER_POOL_ID",
+        APP_CLIENT_ID: "YOUR_DEV_COGNITO_APP_CLIENT_ID",
+        IDENTITY_POOL_ID: "YOUR_DEV_IDENTITY_POOL_ID"
     }
+};
+
+const prod = {
+    STRIPE_KEY: "YOUR_STRIPE_PROD_PUBLIC_KEY",
+    s3: {
+        REGION: "YOUR_PROD_S3_UPLOADS_BUCKET_REGION",
+        BUCKET: "YOUR_PROD_S3_UPLOADS_BUCKET_NAME"
+    },
+    apiGateway: {
+        REGION: "YOUR_PROD_API_GATEWAY_REGION",
+        URL: "YOUR_PROD_API_GATEWAY_URL"
+    },
+    cognito: {
+        REGION: "YOUR_PROD_COGNITO_REGION",
+        USER_POOL_ID: "YOUR_PROD_COGNITO_USER_POOL_ID",
+        APP_CLIENT_ID: "YOUR_PROD_COGNITO_APP_CLIENT_ID",
+        IDENTITY_POOL_ID: "YOUR_PROD_IDENTITY_POOL_ID"
+    }
+};
+
+// Default to dev if not set
+const config = process.env.REACT_APP_STAGE === 'prod' ?
+    prod :
+    dev;
+
+export default {
+    // Add common config values here
+    MAX_ATTACHMENT_SIZE: 5000000,
+    ...config
 };
